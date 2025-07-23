@@ -1,5 +1,7 @@
 package com.guilhermeramos31.springbootjuniorcase.controller;
 
+import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationRequestDTO;
+import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.service.author.interfaces.AuthorService;
@@ -10,7 +12,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @Tag(name = "Author")
@@ -27,12 +28,8 @@ public class AuthorController {
     }
 
     @GetMapping
-    public ResponseEntity<List<AuthorResponseDTO>> findAllAuthors(
-            @RequestParam(value="page", defaultValue = "1") int page,
-            @RequestParam(value="limit", defaultValue = "10") int limit,
-            @RequestParam(value="direction", defaultValue = "asc") String direction)
-    {
-        return ResponseEntity.ok().body(authorService.findAll(page, limit, direction));
+    public ResponseEntity<AuthorPaginationResponseDTO> findAllAuthors(@Valid @ModelAttribute AuthorPaginationRequestDTO pagination)    {
+        return ResponseEntity.ok().body(authorService.findAll(pagination));
     }
 
     @GetMapping("/{id}")

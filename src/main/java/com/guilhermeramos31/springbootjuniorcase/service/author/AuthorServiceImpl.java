@@ -1,5 +1,7 @@
 package com.guilhermeramos31.springbootjuniorcase.service.author;
 
+import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationRequestDTO;
+import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.mapper.AuthorMapper;
@@ -12,7 +14,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.lang.Long;
-import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,13 +45,23 @@ public class AuthorServiceImpl implements AuthorService {
         authorRepository.delete(id);
     }
 
-    public List<AuthorResponseDTO> findAll(int page, int limit, String direction) {
-        var sortDirection = "desc".equalsIgnoreCase(direction) ? Sort.Direction.DESC : Sort.Direction.ASC;
+    public AuthorPaginationResponseDTO findAll(AuthorPaginationRequestDTO pagination) {
+        var paginationResponse = new AuthorPaginationResponseDTO();
+        var sortDirection = "DESC".equalsIgnoreCase(pagination.getDirection()) ? Sort.Direction.DESC : Sort.Direction.ASC;
+        var pageable = PageRequest.of(pagination.getPage() - 1, pagination.getLimit(), Sort.by(sortDirection, "name"));
+        var authorsPagination = authorRepository.findAll(pageable);
 
-        var pageable = PageRequest.of(page, limit, Sort.by(sortDirection, "name"));
+        paginationResponse.setContent(authorMapper.toDTO(authorsPagination.stream().collect(Collectors.toList())));
 
-        var authors = authorRepository.findAll(pageable);
+        paginationResponse.setPageNumber(pagination.getPage());
+        paginationResponse.setPageSize(pagination.getLimit());
 
-        return authorMapper.toDTO(authors.stream().collect(Collectors.toList()));
+        paginationResponse.setTotalElements(authorsPagination.getTotalElements());
+        paginationResponse.setTotalPages(authorsPagination.getTotalPages());
+        paginationResponse.setNumberOfElements(authorsPagination.getContent().size());
+        paginationResponse.setFirst(authorsPagination.isFirst());
+        paginationResponse.setLast(authorsPagination.isLast());
+
+        return paginationResponse;
     }
 }

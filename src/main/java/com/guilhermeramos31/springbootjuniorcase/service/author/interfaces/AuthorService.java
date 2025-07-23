@@ -1,5 +1,7 @@
 package com.guilhermeramos31.springbootjuniorcase.service.author.interfaces;
 
+import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationRequestDTO;
+import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
 
@@ -10,5 +12,5 @@ public interface AuthorService {
     AuthorResponseDTO findById(Long id);
     AuthorResponseDTO update(Long id, AuthorRequestDTO authorRequestDTO);
     void deleteById(Long id);
-    List<AuthorResponseDTO> findAll(int page, int limit, String direction);
+    AuthorPaginationResponseDTO findAll(AuthorPaginationRequestDTO pagination);
 }
