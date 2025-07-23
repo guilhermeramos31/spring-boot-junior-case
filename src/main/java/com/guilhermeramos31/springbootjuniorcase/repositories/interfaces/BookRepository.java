@@ -9,8 +9,8 @@ import java.util.Optional;
 public interface BookRepository {
     Book create(Book book);
     Optional<Book> findById(Long id);
-    Optional<Book> findByName(String name);
+    Optional<Book> findByTitle(String title);
     Book update(Book book);
-    void delete(Book book);
+    void delete(long id);
     Page<Book> findAll(Pageable pageable);
 }

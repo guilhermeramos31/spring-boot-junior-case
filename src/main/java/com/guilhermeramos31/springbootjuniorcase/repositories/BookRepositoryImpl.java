@@ -30,8 +30,8 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Optional<Book> findByName(String name) {
-        return repository.findByName(name);
+    public Optional<Book> findByTitle(String title) {
+        return repository.findByTitle(title);
     }
 
     @Override
@@ -40,8 +40,8 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public void delete(Book book) {
-        this.repository.delete(book);
+    public void delete(long id) {
+        this.repository.deleteById(id);
     }
 
     @Override
