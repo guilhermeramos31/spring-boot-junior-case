@@ -1,4 +1,4 @@
-package com.guilhermeramos31.springbootjuniorcase.model.base;
+package com.guilhermeramos31.springbootjuniorcase.model.base.entity;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

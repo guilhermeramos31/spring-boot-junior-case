@@ -1,4 +1,4 @@
-package com.guilhermeramos31.springbootjuniorcase.model.base;
+package com.guilhermeramos31.springbootjuniorcase.model.base.pagination;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

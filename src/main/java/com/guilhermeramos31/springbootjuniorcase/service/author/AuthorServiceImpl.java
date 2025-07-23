@@ -20,25 +20,25 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
-    private final AuthorMapper authorMapper;
+    private final AuthorMapper mapper;
 
     public AuthorResponseDTO save(AuthorRequestDTO authorRequestDTO) {
-        var author = authorRepository.create(authorMapper.toAuthor(authorRequestDTO));
+        var author = authorRepository.create(mapper.toAuthor(authorRequestDTO));
 
-        return authorMapper.toDTO(author);
+        return mapper.toDTO(author);
     }
 
     public AuthorResponseDTO findById(Long id) {
         var author = authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
 
-        return authorMapper.toDTO(author);
+        return mapper.toDTO(author);
     }
 
     public AuthorResponseDTO update(Long id, AuthorRequestDTO authorRequestDTO) {
-        var author = authorMapper.toAuthor(authorRequestDTO);
+        var author = mapper.toAuthor(authorRequestDTO);
         author =  authorRepository.update(author);
 
-        return authorMapper.toDTO(author);
+        return mapper.toDTO(author);
     }
 
     public void deleteById(Long id) {
@@ -48,10 +48,12 @@ public class AuthorServiceImpl implements AuthorService {
     public AuthorPaginationResponseDTO findAll(AuthorPaginationRequestDTO pagination) {
         var paginationResponse = new AuthorPaginationResponseDTO();
         var sortDirection = "DESC".equalsIgnoreCase(pagination.getDirection()) ? Sort.Direction.DESC : Sort.Direction.ASC;
-        var pageable = PageRequest.of(pagination.getPage() - 1, pagination.getLimit(), Sort.by(sortDirection, "name"));
-        var authorsPagination = authorRepository.findAll(pageable);
+        var authorsPagination = authorRepository.findAll(
+                PageRequest.of(pagination.getPage() - 1,
+                        pagination.getLimit(), Sort.by(sortDirection,
+                                "name")));
 
-        paginationResponse.setContent(authorMapper.toDTO(authorsPagination.stream().collect(Collectors.toList())));
+        paginationResponse.setContent(mapper.toDTO(authorsPagination.stream().collect(Collectors.toList())));
 
         paginationResponse.setPageNumber(pagination.getPage());
         paginationResponse.setPageSize(pagination.getLimit());

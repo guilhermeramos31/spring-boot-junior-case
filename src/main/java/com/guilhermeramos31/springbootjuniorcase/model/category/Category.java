@@ -1,4 +1,4 @@
-package com.guilhermeramos31.springbootjuniorcase.model.author;
+package com.guilhermeramos31.springbootjuniorcase.model.category;
 
 import com.guilhermeramos31.springbootjuniorcase.model.base.entity.BaseEntity;
 import jakarta.persistence.Entity;
@@ -7,15 +7,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDate;
-
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Author extends BaseEntity {
+public class Category extends BaseEntity {
     private String name;
-    private String email;
-    private LocalDate birthDate;
+    private String description;
 }
