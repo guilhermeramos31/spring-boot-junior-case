@@ -12,11 +12,13 @@ import com.guilhermeramos31.springbootjuniorcase.services.book.interfaces.BookSe
 import com.guilhermeramos31.springbootjuniorcase.services.category.interfaces.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.stream.Collectors;
 
 @Service
@@ -30,6 +32,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookResponseDTO create(BookRequestDTO requestDTO) {
         this.priceIsPositive(requestDTO.getPrice());
+        this.yearPublishedIsInFuture(requestDTO.getYearPublished());
 
         var book = mapper.toModel(requestDTO);
         book.setAuthor(authorService.getAuthorById(requestDTO.getAuthor()));
@@ -42,6 +45,12 @@ public class BookServiceImpl implements BookService {
     private void priceIsPositive(BigDecimal price) {
         if (price.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Price must be greater than or equal to zero");
+        }
+    }
+
+    private void yearPublishedIsInFuture(Integer yearPublished) {
+        if (yearPublished == null  || yearPublished > LocalDate.now().getYear()) {
+            throw new IllegalArgumentException("Invalid year published");
         }
     }
 
@@ -58,6 +67,7 @@ public class BookServiceImpl implements BookService {
     @Override
     public BookResponseDTO update(long id, BookRequestDTO requestDTO) {
         this.priceIsPositive(requestDTO.getPrice());
+        this.yearPublishedIsInFuture(requestDTO.getYearPublished());
 
         var book = this.findBookById(id);
         book =  repository.update(book);
