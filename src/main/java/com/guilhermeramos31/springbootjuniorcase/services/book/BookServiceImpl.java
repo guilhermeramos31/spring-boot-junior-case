@@ -48,7 +48,7 @@ public class BookServiceImpl implements BookService {
     }
 
     private void yearPublishedIsInFuture(Integer yearPublished) {
-        if (yearPublished == null  || yearPublished > LocalDate.now().getYear()) {
+        if (yearPublished == null || yearPublished > LocalDate.now().getYear()) {
             throw new IllegalArgumentException("Invalid year published");
         }
     }
