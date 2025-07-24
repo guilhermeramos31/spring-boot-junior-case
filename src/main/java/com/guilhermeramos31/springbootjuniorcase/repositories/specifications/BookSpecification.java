@@ -26,7 +26,7 @@ public class BookSpecification {
 
     public static Specification<Book> hasYearPublished(Integer yearPublished) {
         return (root, query, criteriaBuilder) -> {
-            if (yearPublished == null || yearPublished <= 0) return criteriaBuilder.conjunction().isNull();
+            if (yearPublished == null || yearPublished <= 0) return criteriaBuilder.conjunction();
 
             return criteriaBuilder.equal(root.get("yearPublished"), yearPublished);
         };
