@@ -36,6 +36,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     public AuthorResponseDTO update(Long id, AuthorRequestDTO authorRequestDTO) {
         var author = mapper.toAuthor(authorRequestDTO);
+        author.setId(id);
         author =  authorRepository.update(author);
 
         return mapper.toDTO(author);
