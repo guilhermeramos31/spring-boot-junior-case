@@ -7,13 +7,16 @@ import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.mapper.BookMapper;
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.BookRepository;
+import com.guilhermeramos31.springbootjuniorcase.repositories.specifications.BookSpecification;
 import com.guilhermeramos31.springbootjuniorcase.service.author.interfaces.AuthorService;
 import com.guilhermeramos31.springbootjuniorcase.service.book.interfaces.BookService;
 import com.guilhermeramos31.springbootjuniorcase.service.category.interfaces.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -75,7 +78,8 @@ public class BookServiceImpl implements BookService {
     public BookPaginationResponseDTO findAll(BookPaginationRequestDTO pagination) {
         var paginationResponse = new BookPaginationResponseDTO();
         var sortDirection = "DESC".equalsIgnoreCase(pagination.getDirection()) ? Sort.Direction.DESC : Sort.Direction.ASC;
-        var booksPagination = repository.findAll(
+
+        var booksPagination = repository.findAll(pagination.toSpecification(),
                 PageRequest.of(pagination.getPage() - 1,
                         pagination.getLimit(), Sort.by(sortDirection,
                                 "title")));

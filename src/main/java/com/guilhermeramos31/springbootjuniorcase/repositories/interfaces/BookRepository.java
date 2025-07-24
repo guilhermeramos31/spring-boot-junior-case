@@ -3,6 +3,7 @@ package com.guilhermeramos31.springbootjuniorcase.repositories.interfaces;
 import com.guilhermeramos31.springbootjuniorcase.model.book.Book;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Optional;
 
@@ -12,5 +13,5 @@ public interface BookRepository {
     Optional<Book> findByTitle(String title);
     Book update(Book book);
     void delete(long id);
-    Page<Book> findAll(Pageable pageable);
+    Page<Book> findAll(Specification<Book> specification, Pageable pageable);
 }
