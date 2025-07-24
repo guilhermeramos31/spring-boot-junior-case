@@ -1,5 +1,6 @@
 package com.guilhermeramos31.springbootjuniorcase.service.category;
 
+import com.guilhermeramos31.springbootjuniorcase.model.category.Category;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryPaginationRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryRequestDTO;
@@ -8,6 +9,7 @@ import com.guilhermeramos31.springbootjuniorcase.model.category.mapper.CategoryM
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.CategoryRepository;
 import com.guilhermeramos31.springbootjuniorcase.service.category.interfaces.CategoryService;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
@@ -50,5 +52,10 @@ public class CategoryServiceImpl implements CategoryService {
         paginationResponse.setLast(categoryPagination.isLast());
 
         return paginationResponse;
+    }
+
+    @Override
+    public Category getCategoryById(long id) {
+        return categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not found"));
     }
 }

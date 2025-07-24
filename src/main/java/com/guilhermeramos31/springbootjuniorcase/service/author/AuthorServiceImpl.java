@@ -1,5 +1,6 @@
 package com.guilhermeramos31.springbootjuniorcase.service.author;
 
+import com.guilhermeramos31.springbootjuniorcase.model.author.Author;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
@@ -22,18 +23,21 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
     private final AuthorMapper mapper;
 
+    @Override
     public AuthorResponseDTO save(AuthorRequestDTO authorRequestDTO) {
         var author = authorRepository.create(mapper.toAuthor(authorRequestDTO));
 
         return mapper.toDTO(author);
     }
 
+    @Override
     public AuthorResponseDTO findById(Long id) {
         var author = authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
 
         return mapper.toDTO(author);
     }
 
+    @Override
     public AuthorResponseDTO update(Long id, AuthorRequestDTO authorRequestDTO) {
         var author = mapper.toAuthor(authorRequestDTO);
         author =  authorRepository.update(author);
@@ -41,10 +45,12 @@ public class AuthorServiceImpl implements AuthorService {
         return mapper.toDTO(author);
     }
 
+    @Override
     public void deleteById(Long id) {
         authorRepository.delete(id);
     }
 
+    @Override
     public AuthorPaginationResponseDTO findAll(AuthorPaginationRequestDTO pagination) {
         var paginationResponse = new AuthorPaginationResponseDTO();
         var sortDirection = "DESC".equalsIgnoreCase(pagination.getDirection()) ? Sort.Direction.DESC : Sort.Direction.ASC;
@@ -65,5 +71,10 @@ public class AuthorServiceImpl implements AuthorService {
         paginationResponse.setLast(authorsPagination.isLast());
 
         return paginationResponse;
+    }
+
+    @Override
+    public Author getAuthorById(long id) {
+        return authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
     }
 }

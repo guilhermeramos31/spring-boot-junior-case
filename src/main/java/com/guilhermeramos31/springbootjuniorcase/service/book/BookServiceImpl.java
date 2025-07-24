@@ -7,19 +7,24 @@ import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.mapper.BookMapper;
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.BookRepository;
+import com.guilhermeramos31.springbootjuniorcase.service.author.interfaces.AuthorService;
 import com.guilhermeramos31.springbootjuniorcase.service.book.interfaces.BookService;
+import com.guilhermeramos31.springbootjuniorcase.service.category.interfaces.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BookServiceImpl implements BookService {
     private final BookRepository repository;
+    private final AuthorService authorService;
+    private final CategoryService categoryService;
     private final BookMapper mapper;
 
     @Override
@@ -27,13 +32,15 @@ public class BookServiceImpl implements BookService {
         this.priceIsPositive(requestDTO.getPrice());
 
         var book = mapper.toModel(requestDTO);
+        book.setAuthor(authorService.getAuthorById(requestDTO.getAuthor()));
+        book.setCategory(categoryService.getCategoryById(requestDTO.getCategory()));
         book = repository.create(book);
 
         return mapper.toDTO(book);
     }
 
-    private void priceIsPositive(double price) {
-        if (price < 0) {
+    private void priceIsPositive(BigDecimal price) {
+        if (price.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Price must be greater than or equal to zero");
         }
     }
@@ -53,7 +60,7 @@ public class BookServiceImpl implements BookService {
         this.priceIsPositive(requestDTO.getPrice());
 
         var book = this.findBookById(id);
-        book =  repository.create(mapper.toModel(requestDTO));
+        book =  repository.update(book);
 
         return mapper.toDTO(book);
     }

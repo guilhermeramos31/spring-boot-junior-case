@@ -9,6 +9,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -20,15 +22,15 @@ public class BookRequestDTO {
     @Size(min = 10, max = 13)
     private String isbn;
 
-    private int yearPublished;
+    private Integer yearPublished;
 
     @NotNull
     @PositiveOrZero(message = "Price must be a positive value or zero")
-    private double price;
+    private BigDecimal price;
 
     @NotNull
-    private long author;
+    private Long author;
 
     @NotNull
-    private long category;
+    private Long category;
 }

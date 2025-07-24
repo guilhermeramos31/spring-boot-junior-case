@@ -10,4 +10,5 @@ public interface CategoryRepository {
     Page<Category> findAll(Pageable pageable);
     Category create(Category category);
     Optional<Category> findByName(String name);
+    Optional<Category> findById(long id);
 }
