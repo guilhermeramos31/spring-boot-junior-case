@@ -12,7 +12,6 @@ import com.guilhermeramos31.springbootjuniorcase.services.book.interfaces.BookSe
 import com.guilhermeramos31.springbootjuniorcase.services.category.interfaces.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
