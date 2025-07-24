@@ -4,7 +4,7 @@ import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryPagi
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryResponseDTO;
-import com.guilhermeramos31.springbootjuniorcase.service.category.interfaces.CategoryService;
+import com.guilhermeramos31.springbootjuniorcase.services.category.interfaces.CategoryService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

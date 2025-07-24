@@ -11,6 +11,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.math.BigDecimal;
+
 @Entity
 @Getter
 @Setter
@@ -20,7 +22,7 @@ public class Book extends BaseEntity {
     private String title;
     private String isbn;
     private int yearPublished;
-    private double price;
+    private BigDecimal price;
 
     @ManyToOne
     @JoinColumn(name = "author_id")

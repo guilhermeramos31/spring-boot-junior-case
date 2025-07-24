@@ -33,4 +33,9 @@ public class CategoryRepositoryImpl implements CategoryRepository {
     public Optional<Category> findByName(String name) {
         return repository.findByName(name);
     }
+
+    @Override
+    public Optional<Category> findById(long id) {
+        return repository.findById(id);
+    }
 }

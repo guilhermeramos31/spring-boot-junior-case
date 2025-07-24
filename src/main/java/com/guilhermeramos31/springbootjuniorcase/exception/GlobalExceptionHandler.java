@@ -19,7 +19,7 @@ public class GlobalExceptionHandler {
         var httpStatus = HttpStatus.BAD_REQUEST;
 
         var fieldError = exception.getFieldError();
-        String message = (fieldError != null && fieldError.getDefaultMessage() != null)
+        var message = (fieldError != null && fieldError.getDefaultMessage() != null)
                 ? fieldError.getDefaultMessage()
                 : "Erro de validação genérico";
 

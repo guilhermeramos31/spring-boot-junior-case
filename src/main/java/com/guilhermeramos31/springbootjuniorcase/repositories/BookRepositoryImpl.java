@@ -6,6 +6,7 @@ import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.BookRep
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class BookRepositoryImpl implements BookRepository {
     }
 
     @Override
-    public Page<Book> findAll(Pageable pageable) {
-        return repository.findAll(pageable);
+    public Page<Book> findAll(Specification<Book> specification, Pageable pageable) {
+        return repository.findAll(specification, pageable);
     }
 }

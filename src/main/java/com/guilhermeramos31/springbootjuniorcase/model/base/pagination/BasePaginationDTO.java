@@ -13,11 +13,11 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BasePaginationDTO {
-    @Min(value = 1)
-    private int page;
+    @Min(value = 1, message = "Page deve ser maior que ou igual a 1")
+    private int page = 1;
 
-    @Min(value = 10)
-    private int limit;
+    @Min(value = 10, message = "Limit deve ser maior que ou igual a 10")
+    private int limit = 10;
 
     @Pattern(regexp = "ASC|DESC", flags = Pattern.Flag.CASE_INSENSITIVE, message = "Direction must be ASC or DESC")
     private String direction;

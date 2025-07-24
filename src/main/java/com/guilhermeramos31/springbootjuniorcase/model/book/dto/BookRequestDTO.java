@@ -1,11 +1,15 @@
 package com.guilhermeramos31.springbootjuniorcase.model.book.dto;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.math.BigDecimal;
 
 @Getter
 @Setter
@@ -18,11 +22,15 @@ public class BookRequestDTO {
     @Size(min = 10, max = 13)
     private String isbn;
 
-    private int yearPublished;
+    private Integer yearPublished;
 
-    private double price;
+    @NotNull
+    @PositiveOrZero(message = "Price must be a positive value or zero")
+    private BigDecimal price;
 
-    private long author;
+    @NotNull
+    private Long author;
 
-    private long category;
+    @NotNull
+    private Long category;
 }
