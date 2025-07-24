@@ -71,7 +71,7 @@ public class BookServiceImpl implements BookService {
         var booksPagination = repository.findAll(
                 PageRequest.of(pagination.getPage() - 1,
                         pagination.getLimit(), Sort.by(sortDirection,
-                                "name")));
+                                "title")));
 
         paginationResponse.setContent(mapper.toDTO(booksPagination.stream().collect(Collectors.toList())));
 
@@ -85,5 +85,12 @@ public class BookServiceImpl implements BookService {
         paginationResponse.setLast(booksPagination.isLast());
 
         return paginationResponse;
+    }
+
+    @Override
+    public BookResponseDTO findByTitle(String title) {
+        var  book = repository.findByTitle(title).orElseThrow(() -> new EntityNotFoundException("Book not found with title: " + title));
+
+        return mapper.toDTO(book);
     }
 }

@@ -11,4 +11,5 @@ public interface BookService {
     BookResponseDTO update(long id, BookRequestDTO requestDTO);
     void delete(long id);
     BookPaginationResponseDTO findAll(BookPaginationRequestDTO pagination);
+    BookResponseDTO findByTitle(String title);
 }
