@@ -69,8 +69,12 @@ public class BookServiceImpl implements BookService {
         this.yearPublishedIsInFuture(requestDTO.getYearPublished());
 
         var book = this.findBookById(id);
-        book =  repository.update(book);
-
+        book.setTitle(requestDTO.getTitle());
+        book.setPrice(requestDTO.getPrice());
+        book.setYearPublished(requestDTO.getYearPublished());
+        book.setAuthor(authorService.getAuthorById(requestDTO.getAuthor()));
+        book.setCategory(categoryService.getCategoryById(requestDTO.getCategory()));
+        book = repository.update(book);
         return mapper.toDTO(book);
     }
 
