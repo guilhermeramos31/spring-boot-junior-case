@@ -1,4 +1,4 @@
-package com.guilhermeramos31.springbootjuniorcase.service.author;
+package com.guilhermeramos31.springbootjuniorcase.services.author;
 
 import com.guilhermeramos31.springbootjuniorcase.model.author.Author;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationRequestDTO;
@@ -7,7 +7,7 @@ import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestD
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.mapper.AuthorMapper;
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.AuthorRepository;
-import com.guilhermeramos31.springbootjuniorcase.service.author.interfaces.AuthorService;
+import com.guilhermeramos31.springbootjuniorcase.services.author.interfaces.AuthorService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;

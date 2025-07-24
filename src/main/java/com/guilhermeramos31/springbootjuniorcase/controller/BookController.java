@@ -4,7 +4,7 @@ import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookPaginationRe
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
-import com.guilhermeramos31.springbootjuniorcase.service.book.interfaces.BookService;
+import com.guilhermeramos31.springbootjuniorcase.services.book.interfaces.BookService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

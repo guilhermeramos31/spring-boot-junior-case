@@ -4,7 +4,7 @@ import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginati
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
-import com.guilhermeramos31.springbootjuniorcase.service.author.interfaces.AuthorService;
+import com.guilhermeramos31.springbootjuniorcase.services.author.interfaces.AuthorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;

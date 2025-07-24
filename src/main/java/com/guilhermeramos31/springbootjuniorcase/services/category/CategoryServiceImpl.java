@@ -1,4 +1,4 @@
-package com.guilhermeramos31.springbootjuniorcase.service.category;
+package com.guilhermeramos31.springbootjuniorcase.services.category;
 
 import com.guilhermeramos31.springbootjuniorcase.model.category.Category;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryPaginationRequestDTO;
@@ -7,7 +7,7 @@ import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryRequ
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.category.mapper.CategoryMapper;
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.CategoryRepository;
-import com.guilhermeramos31.springbootjuniorcase.service.category.interfaces.CategoryService;
+import com.guilhermeramos31.springbootjuniorcase.services.category.interfaces.CategoryService;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;

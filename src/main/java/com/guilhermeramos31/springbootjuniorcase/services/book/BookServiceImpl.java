@@ -1,4 +1,4 @@
-package com.guilhermeramos31.springbootjuniorcase.service.book;
+package com.guilhermeramos31.springbootjuniorcase.services.book;
 
 import com.guilhermeramos31.springbootjuniorcase.model.book.Book;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookPaginationRequestDTO;
@@ -7,16 +7,13 @@ import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.mapper.BookMapper;
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.BookRepository;
-import com.guilhermeramos31.springbootjuniorcase.repositories.specifications.BookSpecification;
-import com.guilhermeramos31.springbootjuniorcase.service.author.interfaces.AuthorService;
-import com.guilhermeramos31.springbootjuniorcase.service.book.interfaces.BookService;
-import com.guilhermeramos31.springbootjuniorcase.service.category.interfaces.CategoryService;
+import com.guilhermeramos31.springbootjuniorcase.services.author.interfaces.AuthorService;
+import com.guilhermeramos31.springbootjuniorcase.services.book.interfaces.BookService;
+import com.guilhermeramos31.springbootjuniorcase.services.category.interfaces.CategoryService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.servlet.Filter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;

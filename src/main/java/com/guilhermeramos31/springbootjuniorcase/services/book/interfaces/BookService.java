@@ -1,4 +1,4 @@
-package com.guilhermeramos31.springbootjuniorcase.service.book.interfaces;
+package com.guilhermeramos31.springbootjuniorcase.services.book.interfaces;
 
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookPaginationRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookPaginationResponseDTO;
