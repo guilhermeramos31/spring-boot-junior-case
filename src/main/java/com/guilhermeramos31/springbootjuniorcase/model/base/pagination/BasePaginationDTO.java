@@ -16,7 +16,7 @@ public class BasePaginationDTO {
     @Min(value = 1, message = "Page must be greater than or equal to 1")
     private int page = 1;
 
-    @Min(value = 10, message = "Limit deve ser maior que ou igual a 10")
+    @Min(value = 10, message = "Limit must be greater than or equal to 10")
     private int limit = 10;
 
     @Pattern(regexp = "ASC|DESC", flags = Pattern.Flag.CASE_INSENSITIVE, message = "Direction must be ASC or DESC")
