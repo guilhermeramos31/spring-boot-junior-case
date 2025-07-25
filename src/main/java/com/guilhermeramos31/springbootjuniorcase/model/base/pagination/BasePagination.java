@@ -24,7 +24,7 @@ public class BasePagination<T> {
             example = "10")
     private int pageSize;
 
-    @Schema(description = "Total number of elements in the bank",
+    @Schema(description = "Total number of elements in the collection",
             example = "10")
     private long totalElements;
 
