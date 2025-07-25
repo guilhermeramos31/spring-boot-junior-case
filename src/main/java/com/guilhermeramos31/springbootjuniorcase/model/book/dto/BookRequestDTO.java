@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BookRequestDTO {
-    @NotBlank
+    @NotBlank(message = "Title cannot be empty or null")
     @Schema(description = "Book title", example = "A Ditadura Envergonhada")
     private String title;
 
