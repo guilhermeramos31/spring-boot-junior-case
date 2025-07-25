@@ -18,7 +18,6 @@ public class AuthorRequestDTO {
     private String name;
 
     @Email
-    @NotBlank
     private String email;
 
     private LocalDate birthDate;
