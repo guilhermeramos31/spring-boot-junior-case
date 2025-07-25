@@ -1,5 +1,6 @@
 package com.guilhermeramos31.springbootjuniorcase.controller;
 
+import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryPaginationRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryRequestDTO;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Tag(name = "Category")
@@ -64,5 +66,10 @@ public class CategoryController {
         headers.add(totalPages, String.valueOf(category.getTotalPages()));
 
         return ResponseEntity.ok().headers(headers).body(category);
+    }
+
+    @GetMapping("/{id}/books")
+    public ResponseEntity<List<BookResponseDTO>> getBook(@PathVariable Long id) {
+        return ResponseEntity.ok().body(categoryService.findBookByCategoryId(id));
     }
 }
