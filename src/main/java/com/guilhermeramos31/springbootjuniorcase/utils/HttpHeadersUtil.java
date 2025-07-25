@@ -27,9 +27,9 @@ public class HttpHeadersUtil {
 
     @Value("${my-app.header.number-of-elements}")
     private String numberOfElements;
-    private final HttpHeaders headers =  new HttpHeaders();
 
     public <T> HttpHeaders setPaginationHeaders(BasePagination<T> pagination) {
+        HttpHeaders headers = new HttpHeaders();
         headers.add(pageNumber, String.valueOf(pagination.getPageNumber()));
         headers.add(pageSize, String.valueOf(pagination.getPageSize()));
         headers.add(isLast, String.valueOf(pagination.isLast()));
