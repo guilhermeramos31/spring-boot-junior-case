@@ -17,15 +17,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class AuthorRequestDTO {
 
-    @Schema(description = "Nome completo do autor", example = "Marcelino")
     @NotBlank
+    @Schema(description = "Author's name", example = "Marcelino")
     private String name;
 
-    @Schema(description = "E-mail válido do autor", example = "marcelino.silva@example.com")
     @Email
-    @NotBlank
+    @Schema(description = "Valid author email", example = "marcelino.silva@example.com")
     private String email;
 
-    @Schema(description = "Data de nascimento do autor (formato ISO)", example = "1990-07-22")
+    @Schema(description = "Author's date of birth (ISO format)", example = "1990-07-22")
     private LocalDate birthDate;
 }
