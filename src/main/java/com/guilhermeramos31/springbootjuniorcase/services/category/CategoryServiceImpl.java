@@ -67,7 +67,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public List<BookResponseDTO> findBookByCategoryId(long id) {
-        var  category = categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not found"));
+        var category = categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not found"));
 
         return category.getBooks().stream()
                 .map(bookMapper::toDTO)
