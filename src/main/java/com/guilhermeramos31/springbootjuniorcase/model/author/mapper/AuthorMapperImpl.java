@@ -33,8 +33,5 @@ public class AuthorMapperImpl implements AuthorMapper {
         return authors.stream().map(this::toDTO).collect(Collectors.toList());
     }
 
-    @Override
-    public BookPaginationRequestDTO toBookPagination(AuthorPaginationRequestDTO authorPaginationRequestDTO) {
-        return modelMapper.map(authorPaginationRequestDTO, BookPaginationRequestDTO.class);
-    }
+// Removed unused method `toBookPagination`.
 }
