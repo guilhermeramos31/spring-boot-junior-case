@@ -28,6 +28,10 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorMapper mapper;
     private final BookMapper bookMapper;
 
+    private Author getAuthorById(Long id) {
+        return this.authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
+    }
+
     @Override
     public AuthorResponseDTO save(AuthorRequestDTO authorRequestDTO) {
         var author = this.authorRepository.create(mapper.toAuthor(authorRequestDTO));
@@ -37,14 +41,16 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public AuthorResponseDTO findById(Long id) {
-        var author = this.authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
+        var author = this.getAuthorById(id);
 
         return this.mapper.toDTO(author);
     }
 
     @Override
     public AuthorResponseDTO update(Long id, AuthorRequestDTO authorRequestDTO) {
-        var author = this.mapper.toAuthor(authorRequestDTO);
+        var author = this.getAuthorById(id);
+
+        author = this.mapper.toAuthor(authorRequestDTO);
         author.setId(id);
         author =  this.authorRepository.update(author);
 
@@ -53,6 +59,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void deleteById(Long id) {
+        this.findById(id);
         this.authorRepository.delete(id);
     }
 
