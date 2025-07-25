@@ -42,7 +42,7 @@ INSERT INTO BOOK (created_at, updated_at, title, isbn, year_published, price, au
                                                                                                           (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'A Tormenta de Espadas', '9788579800930', 2000, 72.50, 2, 1);
 
 INSERT INTO BOOK (created_at, updated_at, title, isbn, year_published, price, author_id, category_id) VALUES
-    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'O Cemitério', '9788581050451', 1983, 58.00, 3, 3);
+                                                                                                          (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'O Cemitério', '9788581050451', 1983, 58.00, 3, 3);
 
 INSERT INTO BOOK (created_at, updated_at, title, isbn, year_published, price, author_id, category_id) VALUES
                                                                                                           (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Harry Potter e o Cálice de Fogo', '9788532511041', 2000, 48.00, 1, 1),
