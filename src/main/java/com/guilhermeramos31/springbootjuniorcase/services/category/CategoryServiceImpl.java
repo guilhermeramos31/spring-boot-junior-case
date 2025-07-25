@@ -1,5 +1,7 @@
 package com.guilhermeramos31.springbootjuniorcase.services.category;
 
+import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
+import com.guilhermeramos31.springbootjuniorcase.model.book.mapper.BookMapper;
 import com.guilhermeramos31.springbootjuniorcase.model.category.Category;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryPaginationRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryPaginationResponseDTO;
@@ -15,11 +17,15 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
     private final CategoryRepository categoryRepository;
     private final CategoryMapper mapper;
+    private final BookMapper bookMapper;
 
     @Override
     public CategoryResponseDTO create(CategoryRequestDTO categoryRequestDTO) {
@@ -57,5 +63,14 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public Category getCategoryById(long id) {
         return categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not found"));
+    }
+
+    @Override
+    public List<BookResponseDTO> findBookByCategoryId(long id) {
+        var  category = categoryRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Category not found"));
+
+        return category.getBooks().stream()
+                .map(bookMapper::toDTO)
+                .collect(Collectors.toList()) ;
     }
 }
