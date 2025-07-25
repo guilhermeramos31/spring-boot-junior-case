@@ -28,10 +28,6 @@ public class AuthorServiceImpl implements AuthorService {
     private final AuthorMapper mapper;
     private final BookMapper bookMapper;
 
-    private Author getAuthorById(Long id) {
-        return this.authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
-    }
-
     @Override
     public AuthorResponseDTO save(AuthorRequestDTO authorRequestDTO) {
         var author = this.authorRepository.create(mapper.toAuthor(authorRequestDTO));
