@@ -33,7 +33,7 @@ public class AuthorController {
 
     @PostMapping
     @ApiResponses( value = {
-            @ApiResponse(responseCode = "200", description = "Author created")
+            @ApiResponse(responseCode = "201", description = "Author created")
     })
     public ResponseEntity<AuthorResponseDTO> createAuthor(
             @Valid
@@ -44,6 +44,7 @@ public class AuthorController {
     }
 
     @GetMapping
+    @ApiResponse(responseCode = "200")
     public ResponseEntity<AuthorPaginationResponseDTO> findAllAuthors(@Valid @ModelAttribute AuthorPaginationRequestDTO pagination) {
         var authors = authorService.findAll(pagination);
         var headers = headersUtil.setPaginationHeaders(authors);
@@ -52,16 +53,28 @@ public class AuthorController {
     }
 
     @GetMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Author found"),
+            @ApiResponse(responseCode = "404", description = "Author not found")
+    })
     public ResponseEntity<AuthorResponseDTO> findAuthor(@PathVariable Long id) {
         return ResponseEntity.ok().body(authorService.findById(id));
     }
 
     @GetMapping("/{id}/books")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Books found"),
+            @ApiResponse(responseCode = "404", description = "Author not found")
+    })
     public ResponseEntity<List<BookResponseDTO>> findBook(@PathVariable long id) {
         return ResponseEntity.ok().body(authorService.findBookByAuthorId(id));
     }
 
     @PutMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "201", description = "Author created"),
+            @ApiResponse(responseCode = "404", description = "Author not found")
+    })
     public ResponseEntity<AuthorResponseDTO> updateAuthor(@PathVariable Long id, @Valid @RequestBody AuthorRequestDTO authorDTO) {
         var author = authorService.update(id, authorDTO);
         var location = URI.create("/authors/" + author.getId());
@@ -69,6 +82,10 @@ public class AuthorController {
     }
 
     @DeleteMapping("/{id}")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204", description = "Author deleted"),
+            @ApiResponse(responseCode = "404", description = "Author not found")
+    })
     public ResponseEntity<AuthorResponseDTO> deleteAuthor(@PathVariable Long id) {
         authorService.deleteById(id);
         return ResponseEntity.noContent().build();
