@@ -53,8 +53,8 @@ public class GlobalExceptionHandler {
         return buildErrorResponse(exception.getMessage(), HttpStatus.CONFLICT, "Entity already exists");
     }
 
-    @ExceptionHandler({Throwable.class})
-    public ResponseEntity<ErrorResponse> handlerException(Throwable exception) {
+    @ExceptionHandler({Exception.class})
+    public ResponseEntity<ErrorResponse> handlerException(Exception exception) {
         return buildErrorResponse(exception.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR, "Internal server error");
     }
 }
