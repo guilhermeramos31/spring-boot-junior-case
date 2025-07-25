@@ -59,7 +59,7 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public void deleteById(Long id) {
-        this.findById(id);
+        this.getAuthorById(id);
         this.authorRepository.delete(id);
     }
 
