@@ -13,7 +13,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class BasePaginationDTO {
-    @Min(value = 1, message = "Page deve ser maior que ou igual a 1")
+    @Min(value = 1, message = "Page must be greater than or equal to 1")
     private int page = 1;
 
     @Min(value = 10, message = "Limit deve ser maior que ou igual a 10")
