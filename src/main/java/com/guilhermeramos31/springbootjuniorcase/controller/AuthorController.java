@@ -72,7 +72,7 @@ public class AuthorController {
 
     @PutMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Author created"),
+            @ApiResponse(responseCode = "200", description = "Author updated"),
             @ApiResponse(responseCode = "404", description = "Author not found")
     })
     public ResponseEntity<AuthorResponseDTO> updateAuthor(@PathVariable Long id, @Valid @RequestBody AuthorRequestDTO authorDTO) {
