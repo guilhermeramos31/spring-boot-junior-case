@@ -3,6 +3,7 @@ package com.guilhermeramos31.springbootjuniorcase.repositories.interfaces;
 import com.guilhermeramos31.springbootjuniorcase.model.author.Author;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+// Line removed
 
 import java.util.Optional;
 

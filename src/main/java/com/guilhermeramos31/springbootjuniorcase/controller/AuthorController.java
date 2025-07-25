@@ -4,6 +4,7 @@ import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginati
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
+import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.services.author.interfaces.AuthorService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -14,6 +15,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.List;
 
 @RestController
 @Tag(name = "Author")
@@ -69,6 +71,11 @@ public class AuthorController {
     @GetMapping("/{id}")
     public ResponseEntity<AuthorResponseDTO> findAuthor(@PathVariable Long id) {
         return ResponseEntity.ok().body(authorService.findById(id));
+    }
+
+    @GetMapping("/{id}/books")
+    public ResponseEntity<List<BookResponseDTO>> findBook(@PathVariable long id) {
+        return ResponseEntity.ok().body(authorService.findBookByAuthorId(id));
     }
 
     @PutMapping("/{id}")
