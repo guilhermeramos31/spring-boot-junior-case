@@ -6,6 +6,7 @@ import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestD
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.services.author.interfaces.AuthorService;
+import com.guilhermeramos31.springbootjuniorcase.utils.HttpHeadersUtil;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -23,27 +24,7 @@ import java.util.List;
 @RequestMapping("authors")
 public class AuthorController {
     private final AuthorService authorService;
-
-    @Value("${my-app.header.page-number}")
-    private String pageNumber;
-
-    @Value("${my-app.header.page-size}")
-    private String pageSize;
-
-    @Value("${my-app.header.total-elements}")
-    private String totalElements;
-
-    @Value("${my-app.header.total-pages}")
-    private String totalPages;
-
-    @Value("${my-app.header.is-last}")
-    private String isLast;
-
-    @Value("${my-app.header.is-first}")
-    private String isFirst;
-
-    @Value("${my-app.header.number-of-elements}")
-    private String numberOfElements;
+    private final HttpHeadersUtil headersUtil;
 
     @PostMapping
     public ResponseEntity<AuthorResponseDTO> createAuthor(@Valid @RequestBody AuthorRequestDTO authorDTO) {
@@ -55,15 +36,7 @@ public class AuthorController {
     @GetMapping
     public ResponseEntity<AuthorPaginationResponseDTO> findAllAuthors(@Valid @ModelAttribute AuthorPaginationRequestDTO pagination) {
         var authors = authorService.findAll(pagination);
-        var headers = new HttpHeaders();
-
-        headers.add(pageNumber, String.valueOf(authors.getPageNumber()));
-        headers.add(pageSize, String.valueOf(authors.getPageSize()));
-        headers.add(isLast, String.valueOf(authors.isLast()));
-        headers.add(isFirst, String.valueOf(authors.isFirst()));
-        headers.add(numberOfElements, String.valueOf(authors.getNumberOfElements()));
-        headers.add(totalElements, String.valueOf(authors.getTotalElements()));
-        headers.add(totalPages, String.valueOf(authors.getTotalPages()));
+        var headers = headersUtil.setPaginationHeaders(authors);
 
         return ResponseEntity.ok().headers(headers).body(authors);
     }
