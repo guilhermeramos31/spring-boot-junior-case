@@ -20,7 +20,7 @@ public class BasePagination<T> {
     @Schema(description = "Page where this is", example = "1")
     private int pageNumber;
 
-    @Schema(description = "Amount of content on the page you are on",
+    @Schema(description = "Number of elements per page",
             example = "10")
     private int pageSize;
 
