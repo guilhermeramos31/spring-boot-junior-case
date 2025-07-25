@@ -39,7 +39,7 @@ INSERT INTO BOOK (created_at, updated_at, title, isbn, year_published, price, au
                                                                                                           (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'Homo Deus: Uma Breve História do Amanhã', '9788532530752', 2015, 95.00, 5, 5);
 
 INSERT INTO BOOK (created_at, updated_at, title, isbn, year_published, price, author_id, category_id) VALUES
-    (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'A Tormenta de Espadas', '9788579800930', 2000, 72.50, 2, 1);
+                                                                                                          (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'A Tormenta de Espadas', '9788579800930', 2000, 72.50, 2, 1);
 
 INSERT INTO BOOK (created_at, updated_at, title, isbn, year_published, price, author_id, category_id) VALUES
     (CURRENT_TIMESTAMP, CURRENT_TIMESTAMP, 'O Cemitério', '9788581050451', 1983, 58.00, 3, 3);
