@@ -7,7 +7,6 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -27,7 +26,7 @@ public class AuthorMapperImpl implements AuthorMapper {
     }
 
     @Override
-    public List<AuthorResponseDTO> toDTO(Collection<Author> authors) {
+    public List<AuthorResponseDTO> toDTO(List<Author> authors) {
         return authors.stream().map(this::toDTO).collect(Collectors.toList());
     }
 }

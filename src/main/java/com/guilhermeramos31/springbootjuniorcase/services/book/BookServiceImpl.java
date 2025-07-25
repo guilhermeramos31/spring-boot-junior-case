@@ -10,6 +10,7 @@ import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.BookRep
 import com.guilhermeramos31.springbootjuniorcase.services.author.interfaces.AuthorService;
 import com.guilhermeramos31.springbootjuniorcase.services.book.interfaces.BookService;
 import com.guilhermeramos31.springbootjuniorcase.services.category.interfaces.CategoryService;
+import com.guilhermeramos31.springbootjuniorcase.utils.PaginationUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -94,18 +94,12 @@ public class BookServiceImpl implements BookService {
                         pagination.getLimit(), Sort.by(sortDirection,
                                 "title")));
 
-        paginationResponse.setContent(mapper.toDTO(booksPagination.stream().collect(Collectors.toList())));
-
-        paginationResponse.setPageNumber(pagination.getPage());
-        paginationResponse.setPageSize(pagination.getLimit());
-
-        paginationResponse.setTotalElements(booksPagination.getTotalElements());
-        paginationResponse.setTotalPages(booksPagination.getTotalPages());
-        paginationResponse.setNumberOfElements(booksPagination.getContent().size());
-        paginationResponse.setFirst(booksPagination.isFirst());
-        paginationResponse.setLast(booksPagination.isLast());
-
-        return paginationResponse;
+        return PaginationUtil.buildPaginationResponse(
+                booksPagination,
+                paginationResponse,
+                pagination,
+                mapper::toDTO
+        );
     }
 
     @Override

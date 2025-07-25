@@ -10,6 +10,7 @@ import com.guilhermeramos31.springbootjuniorcase.model.category.dto.CategoryResp
 import com.guilhermeramos31.springbootjuniorcase.model.category.mapper.CategoryMapper;
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.CategoryRepository;
 import com.guilhermeramos31.springbootjuniorcase.services.category.interfaces.CategoryService;
+import com.guilhermeramos31.springbootjuniorcase.utils.PaginationUtil;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -46,18 +47,12 @@ public class CategoryServiceImpl implements CategoryService {
                         pagination.getLimit(), Sort.by(sortDirection,
                                 "name")));
 
-        paginationResponse.setContent(mapper.toDTO(categoryPagination.getContent()));
-
-        paginationResponse.setPageNumber(pagination.getPage());
-        paginationResponse.setPageSize(pagination.getLimit());
-
-        paginationResponse.setTotalElements(categoryPagination.getTotalElements());
-        paginationResponse.setTotalPages(categoryPagination.getTotalPages());
-        paginationResponse.setNumberOfElements(categoryPagination.getNumberOfElements());
-        paginationResponse.setFirst(categoryPagination.isFirst());
-        paginationResponse.setLast(categoryPagination.isLast());
-
-        return paginationResponse;
+        return PaginationUtil.buildPaginationResponse(
+                categoryPagination,
+                paginationResponse,
+                pagination,
+                mapper::toDTO
+        );
     }
 
     @Override

@@ -6,11 +6,11 @@ import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginati
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.mapper.AuthorMapper;
-import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.book.mapper.BookMapper;
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.AuthorRepository;
 import com.guilhermeramos31.springbootjuniorcase.services.author.interfaces.AuthorService;
+import com.guilhermeramos31.springbootjuniorcase.utils.PaginationUtil;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
@@ -65,18 +65,12 @@ public class AuthorServiceImpl implements AuthorService {
                         pagination.getLimit(), Sort.by(sortDirection,
                                 "name")));
 
-        paginationResponse.setContent(mapper.toDTO(authorsPagination.stream().collect(Collectors.toList())));
-
-        paginationResponse.setPageNumber(pagination.getPage());
-        paginationResponse.setPageSize(pagination.getLimit());
-
-        paginationResponse.setTotalElements(authorsPagination.getTotalElements());
-        paginationResponse.setTotalPages(authorsPagination.getTotalPages());
-        paginationResponse.setNumberOfElements(authorsPagination.getContent().size());
-        paginationResponse.setFirst(authorsPagination.isFirst());
-        paginationResponse.setLast(authorsPagination.isLast());
-
-        return paginationResponse;
+        return PaginationUtil.buildPaginationResponse(
+                authorsPagination,
+                paginationResponse,
+                pagination,
+                mapper::toDTO
+        );
     }
 
     @Override

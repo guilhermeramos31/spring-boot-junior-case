@@ -11,5 +11,5 @@ public interface AuthorMapper {
     Author toAuthor(AuthorRequestDTO author);
 
     AuthorResponseDTO toDTO(Author author);
-    List<AuthorResponseDTO> toDTO(Collection<Author> authors);
+    List<AuthorResponseDTO> toDTO(List<Author> authors);
 }
