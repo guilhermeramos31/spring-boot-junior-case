@@ -69,7 +69,7 @@ public class BookController {
 
     @PutMapping("/{id}")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "201", description = "Book updated"),
+            @ApiResponse(responseCode = "200", description = "Book updated"),
             @ApiResponse(responseCode = "404", description = "Book not found")
     })
     public ResponseEntity<BookResponseDTO> updateBook(@PathVariable long id, @Valid @RequestBody BookRequestDTO bookRequestDTO) {
