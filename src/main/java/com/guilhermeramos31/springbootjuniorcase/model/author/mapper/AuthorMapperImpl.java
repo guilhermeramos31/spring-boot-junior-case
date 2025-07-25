@@ -1,8 +1,10 @@
 package com.guilhermeramos31.springbootjuniorcase.model.author.mapper;
 
 import com.guilhermeramos31.springbootjuniorcase.model.author.Author;
+import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
+import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookPaginationRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Component;
@@ -29,5 +31,10 @@ public class AuthorMapperImpl implements AuthorMapper {
     @Override
     public List<AuthorResponseDTO> toDTO(Collection<Author> authors) {
         return authors.stream().map(this::toDTO).collect(Collectors.toList());
+    }
+
+    @Override
+    public BookPaginationRequestDTO toBookPagination(AuthorPaginationRequestDTO authorPaginationRequestDTO) {
+        return modelMapper.map(authorPaginationRequestDTO, BookPaginationRequestDTO.class);
     }
 }

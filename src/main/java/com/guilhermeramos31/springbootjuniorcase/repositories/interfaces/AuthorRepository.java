@@ -1,8 +1,10 @@
 package com.guilhermeramos31.springbootjuniorcase.repositories.interfaces;
 
 import com.guilhermeramos31.springbootjuniorcase.model.author.Author;
+import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationRequestDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 
 import java.util.Optional;
 

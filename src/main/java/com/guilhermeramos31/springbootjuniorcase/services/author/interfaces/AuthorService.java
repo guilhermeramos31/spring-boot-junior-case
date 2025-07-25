@@ -5,6 +5,9 @@ import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginati
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginationResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
+import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
+
+import java.util.List;
 
 public interface AuthorService {
     AuthorResponseDTO save(AuthorRequestDTO authorRequestDTO);
@@ -13,4 +16,5 @@ public interface AuthorService {
     void deleteById(Long id);
     AuthorPaginationResponseDTO findAll(AuthorPaginationRequestDTO pagination);
     Author getAuthorById(long id);
+    List<BookResponseDTO> findBookByAuthorId(long id);
 }

@@ -6,6 +6,9 @@ import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorPaginati
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorRequestDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.dto.AuthorResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.model.author.mapper.AuthorMapper;
+import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookPaginationResponseDTO;
+import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
+import com.guilhermeramos31.springbootjuniorcase.model.book.mapper.BookMapper;
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.AuthorRepository;
 import com.guilhermeramos31.springbootjuniorcase.services.author.interfaces.AuthorService;
 import jakarta.persistence.EntityNotFoundException;
@@ -15,6 +18,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.lang.Long;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
@@ -22,40 +26,41 @@ import java.util.stream.Collectors;
 public class AuthorServiceImpl implements AuthorService {
     private final AuthorRepository authorRepository;
     private final AuthorMapper mapper;
+    private final BookMapper bookMapper;
 
     @Override
     public AuthorResponseDTO save(AuthorRequestDTO authorRequestDTO) {
-        var author = authorRepository.create(mapper.toAuthor(authorRequestDTO));
+        var author = this.authorRepository.create(mapper.toAuthor(authorRequestDTO));
 
-        return mapper.toDTO(author);
+        return this.mapper.toDTO(author);
     }
 
     @Override
     public AuthorResponseDTO findById(Long id) {
-        var author = authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
+        var author = this.authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
 
-        return mapper.toDTO(author);
+        return this.mapper.toDTO(author);
     }
 
     @Override
     public AuthorResponseDTO update(Long id, AuthorRequestDTO authorRequestDTO) {
-        var author = mapper.toAuthor(authorRequestDTO);
+        var author = this.mapper.toAuthor(authorRequestDTO);
         author.setId(id);
-        author =  authorRepository.update(author);
+        author =  this.authorRepository.update(author);
 
-        return mapper.toDTO(author);
+        return this.mapper.toDTO(author);
     }
 
     @Override
     public void deleteById(Long id) {
-        authorRepository.delete(id);
+        this.authorRepository.delete(id);
     }
 
     @Override
     public AuthorPaginationResponseDTO findAll(AuthorPaginationRequestDTO pagination) {
         var paginationResponse = new AuthorPaginationResponseDTO();
         var sortDirection = "DESC".equalsIgnoreCase(pagination.getDirection()) ? Sort.Direction.DESC : Sort.Direction.ASC;
-        var authorsPagination = authorRepository.findAll(
+        var authorsPagination = this.authorRepository.findAll(
                 PageRequest.of(pagination.getPage() - 1,
                         pagination.getLimit(), Sort.by(sortDirection,
                                 "name")));
@@ -76,6 +81,15 @@ public class AuthorServiceImpl implements AuthorService {
 
     @Override
     public Author getAuthorById(long id) {
-        return authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
+        return this.authorRepository.findById(id).orElseThrow(()-> new EntityNotFoundException("Author not found"));
+    }
+
+    @Override
+    public List<BookResponseDTO> findBookByAuthorId(long id) {
+        var author = this.getAuthorById(id);
+
+        return author.getBooks().stream()
+                .map(bookMapper::toDTO)
+                .collect(Collectors.toList()) ;
     }
 }
