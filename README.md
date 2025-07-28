@@ -59,7 +59,7 @@ Certifique-se de ter as seguintes ferramentas instaladas em sua máquina:
     git clone https://github.com/guilhermeramos31/spring-boot-junior-case.git
     ```
     ```bash
-        cd spring-boot-junior-case
+    cd spring-boot-junior-case
     ```
 
 2.  **Configuração do `application.properties`:**
