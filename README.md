@@ -25,7 +25,6 @@ Este projeto é uma API RESTful desenvolvida com Spring Boot para gerenciar livr
     * [Listar Livros Paginados e Filtrados](#listar-livros-paginados-e-filtrados)
     * [Buscar Livro por ID](#buscar-livro-por-id)
     * [Listar Livros de um Autor Específico](#listar-livros-de-um-autor-específico)
-6.  https://undetectable.io/es/blog/web-scraping-methods-and-practices/(#6-url-utilizada-para-scraping-opcional)
 
 ---
 
