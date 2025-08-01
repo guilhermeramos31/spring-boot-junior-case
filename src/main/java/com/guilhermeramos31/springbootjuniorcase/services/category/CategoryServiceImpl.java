@@ -37,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryResponseDTO create(CategoryRequestDTO categoryRequestDTO) {
         var category = categoryRepository.findByName(categoryRequestDTO.getName());
         if (category.isPresent()) {
-            CategoryServiceImpl.log.atWarn().log("Category with name " + categoryRequestDTO.getName() + " already exists");
+            log.warn("Category with name {} already exists", categoryRequestDTO.getName());
             return mapper.toDTO(this.getCategoryByName(categoryRequestDTO.getName()));
         }
 
