@@ -48,7 +48,7 @@ public class WebScrapingServiceImpl implements WebScrapingService {
     }
 
     private HtmlPage page(String id) {
-        return connection(id).getPage();
+        return connection(id);
     }
 
     private <T extends HtmlElement>Optional<T> getHtmlElement(HtmlPage page, String string) {
