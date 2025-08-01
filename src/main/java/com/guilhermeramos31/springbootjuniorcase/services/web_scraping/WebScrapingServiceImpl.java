@@ -27,9 +27,14 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class WebScrapingServiceImpl implements WebScrapingService {
-
     @Value("${scraping.amazon.url}")
     private String amazonUrl;
+
+    @Value("${web-scraping.default_category_name}")
+    private String defaultCategoryName;
+
+    @Value("${web-scraping.default_category_description}")
+    private String defaultCategoryDescription;
 
     private final WebClient webClient;
 
@@ -66,8 +71,8 @@ public class WebScrapingServiceImpl implements WebScrapingService {
 
     private CategoryRequestDTO getCategoryScraping() {
         var category = new CategoryRequestDTO();
-        category.setName("General");
-        category.setDescription("This category groups together a variety of titles on general and diverse topics, ideal for readers looking for works without a strict thematic classification. It covers topics from classic fiction to essays on contemporary culture.");
+        category.setName(defaultCategoryName);
+        category.setDescription(defaultCategoryDescription);
 
         return category;
     }
