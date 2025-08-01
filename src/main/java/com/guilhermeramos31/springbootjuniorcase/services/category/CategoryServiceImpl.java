@@ -14,13 +14,16 @@ import com.guilhermeramos31.springbootjuniorcase.utils.PaginationUtil;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
@@ -28,11 +31,16 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper mapper;
     private final BookMapper bookMapper;
 
+    private Category getCategoryByName(String name) {
+        return categoryRepository.findByName(name).orElseThrow(EntityNotFoundException::new);
+    }
+
     @Override
     public CategoryResponseDTO create(CategoryRequestDTO categoryRequestDTO) {
         var category = categoryRepository.findByName(categoryRequestDTO.getName());
         if (category.isPresent()) {
-            throw new EntityExistsException("Category with name " + categoryRequestDTO.getName() + " already exists");
+            CategoryServiceImpl.log.atWarn().log("Category with name " + categoryRequestDTO.getName() + " already exists");
+            category = Optional.ofNullable(this.getCategoryByName(categoryRequestDTO.getName()));
         }
 
         return mapper.toDTO(categoryRepository.create(mapper.toModel(categoryRequestDTO)));
