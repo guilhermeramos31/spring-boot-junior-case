@@ -11,9 +11,9 @@ import com.guilhermeramos31.springbootjuniorcase.model.category.mapper.CategoryM
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.CategoryRepository;
 import com.guilhermeramos31.springbootjuniorcase.services.category.interfaces.CategoryService;
 import com.guilhermeramos31.springbootjuniorcase.utils.PaginationUtil;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -21,6 +21,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.stream.Collectors;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
@@ -28,11 +29,16 @@ public class CategoryServiceImpl implements CategoryService {
     private final CategoryMapper mapper;
     private final BookMapper bookMapper;
 
+    private Category getCategoryByName(String name) {
+        return categoryRepository.findByName(name).orElseThrow(EntityNotFoundException::new);
+    }
+
     @Override
     public CategoryResponseDTO create(CategoryRequestDTO categoryRequestDTO) {
         var category = categoryRepository.findByName(categoryRequestDTO.getName());
         if (category.isPresent()) {
-            throw new EntityExistsException("Category with name " + categoryRequestDTO.getName() + " already exists");
+            log.warn("Category with name {} already exists", categoryRequestDTO.getName());
+            return mapper.toDTO(this.getCategoryByName(categoryRequestDTO.getName()));
         }
 
         return mapper.toDTO(categoryRepository.create(mapper.toModel(categoryRequestDTO)));

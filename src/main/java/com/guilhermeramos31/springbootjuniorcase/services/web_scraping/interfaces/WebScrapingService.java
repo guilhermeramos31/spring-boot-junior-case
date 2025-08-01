@@ -3,5 +3,5 @@ package com.guilhermeramos31.springbootjuniorcase.services.web_scraping.interfac
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
 
 public interface WebScrapingService {
-    BookResponseDTO extract(long id);
+    BookResponseDTO extract(String id);
 }
