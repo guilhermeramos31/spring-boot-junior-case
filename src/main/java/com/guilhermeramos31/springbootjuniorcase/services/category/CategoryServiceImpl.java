@@ -11,7 +11,6 @@ import com.guilhermeramos31.springbootjuniorcase.model.category.mapper.CategoryM
 import com.guilhermeramos31.springbootjuniorcase.repositories.interfaces.CategoryRepository;
 import com.guilhermeramos31.springbootjuniorcase.services.category.interfaces.CategoryService;
 import com.guilhermeramos31.springbootjuniorcase.utils.PaginationUtil;
-import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +19,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Slf4j

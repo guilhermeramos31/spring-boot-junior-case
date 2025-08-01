@@ -48,7 +48,7 @@ public class WebScrapingServiceImpl implements WebScrapingService {
     }
 
     private HtmlPage page(String id) {
-        return connection(id).getPage();
+        return connection(id);
     }
 
     private <T extends HtmlElement>Optional<T> getHtmlElement(HtmlPage page, String string) {
@@ -106,8 +106,8 @@ public class WebScrapingServiceImpl implements WebScrapingService {
     }
 
     @Override
-    public BookResponseDTO extract(long id) {
-        var page = page(String.valueOf(id));
+    public BookResponseDTO extract(String id) {
+        var page = page(id);
         var scrapedCategoria = getCategoryScraping();
         var scrapedAuthor = getAuthorScraping(page);
         var scrapedBook = getBookScraping(page);

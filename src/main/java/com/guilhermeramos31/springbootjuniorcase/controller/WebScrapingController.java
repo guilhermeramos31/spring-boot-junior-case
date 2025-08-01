@@ -3,7 +3,7 @@ package com.guilhermeramos31.springbootjuniorcase.controller;
 import com.guilhermeramos31.springbootjuniorcase.model.book.dto.BookResponseDTO;
 import com.guilhermeramos31.springbootjuniorcase.services.web_scraping.interfaces.WebScrapingService;
 import jakarta.validation.Valid;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +18,7 @@ public class WebScrapingController {
     private final WebScrapingService webScrapingService;
 
     @PostMapping("/{id}")
-    public ResponseEntity<BookResponseDTO> scrape(@PathVariable @Valid @NotNull long id) {
+    public ResponseEntity<BookResponseDTO> scrape(@PathVariable @Valid @NotBlank String id) {
         return ResponseEntity.ok(webScrapingService.extract(id));
     }
 }
