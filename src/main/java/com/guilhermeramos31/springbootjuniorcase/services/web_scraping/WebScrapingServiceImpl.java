@@ -43,7 +43,7 @@ public class WebScrapingServiceImpl implements WebScrapingService {
         try {
             return webClient.getPage(amazonUrl.concat(idBook));
         } catch (IOException exception) {
-            throw new RuntimeException(exception);
+            throw new WebScrapingException("Failed to connect to Amazon page for book ID: " + idBook, exception);
         }
     }
 
